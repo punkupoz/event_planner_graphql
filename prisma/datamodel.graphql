@@ -1,0 +1,110 @@
+type Event {
+	id: ID! @unique
+	name: String!
+	description: String!
+	date: DateTime!
+
+	location: [Location!]! @relation(name: "EventLocations")
+	fund: Fund! @relation(name: "EventFund")
+	discussion: [Discussion!]! @relation(name: "EventDiscussions")
+	host: User! @relation(name: "EventHost")
+	members: [User!]! @relation(name: "EventMembers")
+	carpool: [Carpool!]! @relation(name: "EventCarpool")
+	contribitedItems: [ContributedItems!]! @relation(name: "EventContributedItems")
+}
+
+type Location {
+	id: ID! @unique
+	address: String!
+	description: String!
+	priority: String!
+	startTime: DateTime
+	endTime: DateTime
+
+	event: Event! @relation(name: "EventLocations")
+}
+
+type CarpoolLocation {
+	id: ID! @unique
+	maximumDistance: Float!
+	startPickupTime: DateTime!
+	estimationToEvent: Int!
+
+	carpool: Carpool! @relation(name: "CarpoolLocation")
+}
+
+type Carpool {
+	id: ID! @unique
+	availableSeat: Int!
+	maximumSeat: Int!
+
+	location: [CarpoolLocation!]! @relation(name: "CarpoolLocation")
+	event: Event! @relation(name: "EventCarpool")
+}
+
+type User {
+	id: ID! @unique
+	username: String!
+	password: String!
+	realName: String!
+	phone: String!
+	email: String! @unique
+
+	discussionPosted: Discussion @relation(name: "UserDiscussionPosted")
+	hostEvent: Event @relation(name:"EventHost")
+	memberOf: Event @relation(name:"EventMembers")
+	fundContributed: Fund @relation(name: "MemberFund")
+	itemContributed: ContributedItems @relation(name:"MemberItemContribution")
+	commentPosted: Comment @relation(name: "UserCommentPosted")
+}
+
+type Discussion {
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	content: String!
+	approved: Boolean! @default(value: "false")
+
+	event: Event! @relation(name: "EventDiscussions")
+	postedBy: User! @relation(name: "UserDiscussionPosted")
+	commented: [Comment!]! @relation(name: "CommentDiscussion")
+}
+
+type Comment {
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	content: String!
+	parent: Comment @relation(name: "CommentReply")
+	children: [Comment!]! @relation(name: "CommentReply")
+
+	postedBy: User! @relation(name: "UserCommentPosted")
+	discussion: Discussion! @relation(name: "CommentDiscussion")
+}
+
+type Fund {
+	id: ID! @unique
+	estimated: Float!
+	current: Float!
+	user: [User!]! @relation(name: "MemberFund")
+	event: Event! @relation(name: "EventFund")
+}
+
+type FundRaisedItems {
+	id: ID! @unique
+	name: String!
+	description: String!
+	mandatory: Boolean! @default(value:"false")
+	fundCost: Float!
+}
+
+type ContributedItems {
+	id: ID! @unique
+	name: String!
+	description: String!
+	mandatory: Boolean! @default(value:"false")
+
+	user: User! @relation(name: "MemberItemContribution")
+	event: Event! @relation(name: "EventContributedItems")
+}
+

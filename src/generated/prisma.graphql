@@ -1,0 +1,3958 @@
+# source: http://localhost:4466
+# timestamp: Sat Aug 25 2018 00:23:17 GMT+1000 (AEST)
+
+type AggregateCarpool {
+  count: Int!
+}
+
+type AggregateCarpoolLocation {
+  count: Int!
+}
+
+type AggregateComment {
+  count: Int!
+}
+
+type AggregateContributedItems {
+  count: Int!
+}
+
+type AggregateDiscussion {
+  count: Int!
+}
+
+type AggregateEvent {
+  count: Int!
+}
+
+type AggregateFund {
+  count: Int!
+}
+
+type AggregateFundRaisedItems {
+  count: Int!
+}
+
+type AggregateLocation {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Carpool implements Node {
+  id: ID!
+  availableSeat: Int!
+  maximumSeat: Int!
+  location(where: CarpoolLocationWhereInput, orderBy: CarpoolLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CarpoolLocation!]
+  event(where: EventWhereInput): Event!
+}
+
+"""A connection to a list of items."""
+type CarpoolConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CarpoolEdge]!
+  aggregate: AggregateCarpool!
+}
+
+input CarpoolCreateInput {
+  availableSeat: Int!
+  maximumSeat: Int!
+  location: CarpoolLocationCreateManyWithoutCarpoolInput
+  event: EventCreateOneWithoutCarpoolInput!
+}
+
+input CarpoolCreateManyWithoutEventInput {
+  create: [CarpoolCreateWithoutEventInput!]
+  connect: [CarpoolWhereUniqueInput!]
+}
+
+input CarpoolCreateOneWithoutLocationInput {
+  create: CarpoolCreateWithoutLocationInput
+  connect: CarpoolWhereUniqueInput
+}
+
+input CarpoolCreateWithoutEventInput {
+  availableSeat: Int!
+  maximumSeat: Int!
+  location: CarpoolLocationCreateManyWithoutCarpoolInput
+}
+
+input CarpoolCreateWithoutLocationInput {
+  availableSeat: Int!
+  maximumSeat: Int!
+  event: EventCreateOneWithoutCarpoolInput!
+}
+
+"""An edge in a connection."""
+type CarpoolEdge {
+  """The item at the end of the edge."""
+  node: Carpool!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type CarpoolLocation implements Node {
+  id: ID!
+  maximumDistance: Float!
+  startPickupTime: DateTime!
+  estimationToEvent: Int!
+  carpool(where: CarpoolWhereInput): Carpool!
+}
+
+"""A connection to a list of items."""
+type CarpoolLocationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CarpoolLocationEdge]!
+  aggregate: AggregateCarpoolLocation!
+}
+
+input CarpoolLocationCreateInput {
+  maximumDistance: Float!
+  startPickupTime: DateTime!
+  estimationToEvent: Int!
+  carpool: CarpoolCreateOneWithoutLocationInput!
+}
+
+input CarpoolLocationCreateManyWithoutCarpoolInput {
+  create: [CarpoolLocationCreateWithoutCarpoolInput!]
+  connect: [CarpoolLocationWhereUniqueInput!]
+}
+
+input CarpoolLocationCreateWithoutCarpoolInput {
+  maximumDistance: Float!
+  startPickupTime: DateTime!
+  estimationToEvent: Int!
+}
+
+"""An edge in a connection."""
+type CarpoolLocationEdge {
+  """The item at the end of the edge."""
+  node: CarpoolLocation!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CarpoolLocationOrderByInput {
+  id_ASC
+  id_DESC
+  maximumDistance_ASC
+  maximumDistance_DESC
+  startPickupTime_ASC
+  startPickupTime_DESC
+  estimationToEvent_ASC
+  estimationToEvent_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CarpoolLocationPreviousValues {
+  id: ID!
+  maximumDistance: Float!
+  startPickupTime: DateTime!
+  estimationToEvent: Int!
+}
+
+type CarpoolLocationSubscriptionPayload {
+  mutation: MutationType!
+  node: CarpoolLocation
+  updatedFields: [String!]
+  previousValues: CarpoolLocationPreviousValues
+}
+
+input CarpoolLocationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CarpoolLocationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CarpoolLocationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CarpoolLocationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CarpoolLocationWhereInput
+}
+
+input CarpoolLocationUpdateInput {
+  maximumDistance: Float
+  startPickupTime: DateTime
+  estimationToEvent: Int
+  carpool: CarpoolUpdateOneWithoutLocationInput
+}
+
+input CarpoolLocationUpdateManyWithoutCarpoolInput {
+  create: [CarpoolLocationCreateWithoutCarpoolInput!]
+  connect: [CarpoolLocationWhereUniqueInput!]
+  disconnect: [CarpoolLocationWhereUniqueInput!]
+  delete: [CarpoolLocationWhereUniqueInput!]
+  update: [CarpoolLocationUpdateWithWhereUniqueWithoutCarpoolInput!]
+  upsert: [CarpoolLocationUpsertWithWhereUniqueWithoutCarpoolInput!]
+}
+
+input CarpoolLocationUpdateWithoutCarpoolDataInput {
+  maximumDistance: Float
+  startPickupTime: DateTime
+  estimationToEvent: Int
+}
+
+input CarpoolLocationUpdateWithWhereUniqueWithoutCarpoolInput {
+  where: CarpoolLocationWhereUniqueInput!
+  data: CarpoolLocationUpdateWithoutCarpoolDataInput!
+}
+
+input CarpoolLocationUpsertWithWhereUniqueWithoutCarpoolInput {
+  where: CarpoolLocationWhereUniqueInput!
+  update: CarpoolLocationUpdateWithoutCarpoolDataInput!
+  create: CarpoolLocationCreateWithoutCarpoolInput!
+}
+
+input CarpoolLocationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CarpoolLocationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CarpoolLocationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CarpoolLocationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  maximumDistance: Float
+
+  """All values that are not equal to given value."""
+  maximumDistance_not: Float
+
+  """All values that are contained in given list."""
+  maximumDistance_in: [Float!]
+
+  """All values that are not contained in given list."""
+  maximumDistance_not_in: [Float!]
+
+  """All values less than the given value."""
+  maximumDistance_lt: Float
+
+  """All values less than or equal the given value."""
+  maximumDistance_lte: Float
+
+  """All values greater than the given value."""
+  maximumDistance_gt: Float
+
+  """All values greater than or equal the given value."""
+  maximumDistance_gte: Float
+  startPickupTime: DateTime
+
+  """All values that are not equal to given value."""
+  startPickupTime_not: DateTime
+
+  """All values that are contained in given list."""
+  startPickupTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  startPickupTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  startPickupTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  startPickupTime_lte: DateTime
+
+  """All values greater than the given value."""
+  startPickupTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  startPickupTime_gte: DateTime
+  estimationToEvent: Int
+
+  """All values that are not equal to given value."""
+  estimationToEvent_not: Int
+
+  """All values that are contained in given list."""
+  estimationToEvent_in: [Int!]
+
+  """All values that are not contained in given list."""
+  estimationToEvent_not_in: [Int!]
+
+  """All values less than the given value."""
+  estimationToEvent_lt: Int
+
+  """All values less than or equal the given value."""
+  estimationToEvent_lte: Int
+
+  """All values greater than the given value."""
+  estimationToEvent_gt: Int
+
+  """All values greater than or equal the given value."""
+  estimationToEvent_gte: Int
+  carpool: CarpoolWhereInput
+}
+
+input CarpoolLocationWhereUniqueInput {
+  id: ID
+}
+
+enum CarpoolOrderByInput {
+  id_ASC
+  id_DESC
+  availableSeat_ASC
+  availableSeat_DESC
+  maximumSeat_ASC
+  maximumSeat_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CarpoolPreviousValues {
+  id: ID!
+  availableSeat: Int!
+  maximumSeat: Int!
+}
+
+type CarpoolSubscriptionPayload {
+  mutation: MutationType!
+  node: Carpool
+  updatedFields: [String!]
+  previousValues: CarpoolPreviousValues
+}
+
+input CarpoolSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CarpoolSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CarpoolSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CarpoolSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CarpoolWhereInput
+}
+
+input CarpoolUpdateInput {
+  availableSeat: Int
+  maximumSeat: Int
+  location: CarpoolLocationUpdateManyWithoutCarpoolInput
+  event: EventUpdateOneWithoutCarpoolInput
+}
+
+input CarpoolUpdateManyWithoutEventInput {
+  create: [CarpoolCreateWithoutEventInput!]
+  connect: [CarpoolWhereUniqueInput!]
+  disconnect: [CarpoolWhereUniqueInput!]
+  delete: [CarpoolWhereUniqueInput!]
+  update: [CarpoolUpdateWithWhereUniqueWithoutEventInput!]
+  upsert: [CarpoolUpsertWithWhereUniqueWithoutEventInput!]
+}
+
+input CarpoolUpdateOneWithoutLocationInput {
+  create: CarpoolCreateWithoutLocationInput
+  connect: CarpoolWhereUniqueInput
+  delete: Boolean
+  update: CarpoolUpdateWithoutLocationDataInput
+  upsert: CarpoolUpsertWithoutLocationInput
+}
+
+input CarpoolUpdateWithoutEventDataInput {
+  availableSeat: Int
+  maximumSeat: Int
+  location: CarpoolLocationUpdateManyWithoutCarpoolInput
+}
+
+input CarpoolUpdateWithoutLocationDataInput {
+  availableSeat: Int
+  maximumSeat: Int
+  event: EventUpdateOneWithoutCarpoolInput
+}
+
+input CarpoolUpdateWithWhereUniqueWithoutEventInput {
+  where: CarpoolWhereUniqueInput!
+  data: CarpoolUpdateWithoutEventDataInput!
+}
+
+input CarpoolUpsertWithoutLocationInput {
+  update: CarpoolUpdateWithoutLocationDataInput!
+  create: CarpoolCreateWithoutLocationInput!
+}
+
+input CarpoolUpsertWithWhereUniqueWithoutEventInput {
+  where: CarpoolWhereUniqueInput!
+  update: CarpoolUpdateWithoutEventDataInput!
+  create: CarpoolCreateWithoutEventInput!
+}
+
+input CarpoolWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CarpoolWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CarpoolWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CarpoolWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  availableSeat: Int
+
+  """All values that are not equal to given value."""
+  availableSeat_not: Int
+
+  """All values that are contained in given list."""
+  availableSeat_in: [Int!]
+
+  """All values that are not contained in given list."""
+  availableSeat_not_in: [Int!]
+
+  """All values less than the given value."""
+  availableSeat_lt: Int
+
+  """All values less than or equal the given value."""
+  availableSeat_lte: Int
+
+  """All values greater than the given value."""
+  availableSeat_gt: Int
+
+  """All values greater than or equal the given value."""
+  availableSeat_gte: Int
+  maximumSeat: Int
+
+  """All values that are not equal to given value."""
+  maximumSeat_not: Int
+
+  """All values that are contained in given list."""
+  maximumSeat_in: [Int!]
+
+  """All values that are not contained in given list."""
+  maximumSeat_not_in: [Int!]
+
+  """All values less than the given value."""
+  maximumSeat_lt: Int
+
+  """All values less than or equal the given value."""
+  maximumSeat_lte: Int
+
+  """All values greater than the given value."""
+  maximumSeat_gt: Int
+
+  """All values greater than or equal the given value."""
+  maximumSeat_gte: Int
+  location_every: CarpoolLocationWhereInput
+  location_some: CarpoolLocationWhereInput
+  location_none: CarpoolLocationWhereInput
+  event: EventWhereInput
+}
+
+input CarpoolWhereUniqueInput {
+  id: ID
+}
+
+type Comment implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  parent(where: CommentWhereInput): Comment
+  children(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  postedBy(where: UserWhereInput): User!
+  discussion(where: DiscussionWhereInput): Discussion!
+}
+
+"""A connection to a list of items."""
+type CommentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CommentEdge]!
+  aggregate: AggregateComment!
+}
+
+input CommentCreateInput {
+  content: String!
+  parent: CommentCreateOneWithoutChildrenInput
+  children: CommentCreateManyWithoutParentInput
+  postedBy: UserCreateOneWithoutCommentPostedInput!
+  discussion: DiscussionCreateOneWithoutCommentedInput!
+}
+
+input CommentCreateManyWithoutDiscussionInput {
+  create: [CommentCreateWithoutDiscussionInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateManyWithoutParentInput {
+  create: [CommentCreateWithoutParentInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateOneWithoutChildrenInput {
+  create: CommentCreateWithoutChildrenInput
+  connect: CommentWhereUniqueInput
+}
+
+input CommentCreateOneWithoutPostedByInput {
+  create: CommentCreateWithoutPostedByInput
+  connect: CommentWhereUniqueInput
+}
+
+input CommentCreateWithoutChildrenInput {
+  content: String!
+  parent: CommentCreateOneWithoutChildrenInput
+  postedBy: UserCreateOneWithoutCommentPostedInput!
+  discussion: DiscussionCreateOneWithoutCommentedInput!
+}
+
+input CommentCreateWithoutDiscussionInput {
+  content: String!
+  parent: CommentCreateOneWithoutChildrenInput
+  children: CommentCreateManyWithoutParentInput
+  postedBy: UserCreateOneWithoutCommentPostedInput!
+}
+
+input CommentCreateWithoutParentInput {
+  content: String!
+  children: CommentCreateManyWithoutParentInput
+  postedBy: UserCreateOneWithoutCommentPostedInput!
+  discussion: DiscussionCreateOneWithoutCommentedInput!
+}
+
+input CommentCreateWithoutPostedByInput {
+  content: String!
+  parent: CommentCreateOneWithoutChildrenInput
+  children: CommentCreateManyWithoutParentInput
+  discussion: DiscussionCreateOneWithoutCommentedInput!
+}
+
+"""An edge in a connection."""
+type CommentEdge {
+  """The item at the end of the edge."""
+  node: Comment!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CommentOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  content_ASC
+  content_DESC
+}
+
+type CommentPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+  updatedFields: [String!]
+  previousValues: CommentPreviousValues
+}
+
+input CommentSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CommentWhereInput
+}
+
+input CommentUpdateInput {
+  content: String
+  parent: CommentUpdateOneWithoutChildrenInput
+  children: CommentUpdateManyWithoutParentInput
+  postedBy: UserUpdateOneWithoutCommentPostedInput
+  discussion: DiscussionUpdateOneWithoutCommentedInput
+}
+
+input CommentUpdateManyWithoutDiscussionInput {
+  create: [CommentCreateWithoutDiscussionInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutDiscussionInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutDiscussionInput!]
+}
+
+input CommentUpdateManyWithoutParentInput {
+  create: [CommentCreateWithoutParentInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutParentInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutParentInput!]
+}
+
+input CommentUpdateOneWithoutChildrenInput {
+  create: CommentCreateWithoutChildrenInput
+  connect: CommentWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: CommentUpdateWithoutChildrenDataInput
+  upsert: CommentUpsertWithoutChildrenInput
+}
+
+input CommentUpdateOneWithoutPostedByInput {
+  create: CommentCreateWithoutPostedByInput
+  connect: CommentWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: CommentUpdateWithoutPostedByDataInput
+  upsert: CommentUpsertWithoutPostedByInput
+}
+
+input CommentUpdateWithoutChildrenDataInput {
+  content: String
+  parent: CommentUpdateOneWithoutChildrenInput
+  postedBy: UserUpdateOneWithoutCommentPostedInput
+  discussion: DiscussionUpdateOneWithoutCommentedInput
+}
+
+input CommentUpdateWithoutDiscussionDataInput {
+  content: String
+  parent: CommentUpdateOneWithoutChildrenInput
+  children: CommentUpdateManyWithoutParentInput
+  postedBy: UserUpdateOneWithoutCommentPostedInput
+}
+
+input CommentUpdateWithoutParentDataInput {
+  content: String
+  children: CommentUpdateManyWithoutParentInput
+  postedBy: UserUpdateOneWithoutCommentPostedInput
+  discussion: DiscussionUpdateOneWithoutCommentedInput
+}
+
+input CommentUpdateWithoutPostedByDataInput {
+  content: String
+  parent: CommentUpdateOneWithoutChildrenInput
+  children: CommentUpdateManyWithoutParentInput
+  discussion: DiscussionUpdateOneWithoutCommentedInput
+}
+
+input CommentUpdateWithWhereUniqueWithoutDiscussionInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutDiscussionDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutParentInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutParentDataInput!
+}
+
+input CommentUpsertWithoutChildrenInput {
+  update: CommentUpdateWithoutChildrenDataInput!
+  create: CommentCreateWithoutChildrenInput!
+}
+
+input CommentUpsertWithoutPostedByInput {
+  update: CommentUpdateWithoutPostedByDataInput!
+  create: CommentCreateWithoutPostedByInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutDiscussionInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutDiscussionDataInput!
+  create: CommentCreateWithoutDiscussionInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutParentInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutParentDataInput!
+  create: CommentCreateWithoutParentInput!
+}
+
+input CommentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  content: String
+
+  """All values that are not equal to given value."""
+  content_not: String
+
+  """All values that are contained in given list."""
+  content_in: [String!]
+
+  """All values that are not contained in given list."""
+  content_not_in: [String!]
+
+  """All values less than the given value."""
+  content_lt: String
+
+  """All values less than or equal the given value."""
+  content_lte: String
+
+  """All values greater than the given value."""
+  content_gt: String
+
+  """All values greater than or equal the given value."""
+  content_gte: String
+
+  """All values containing the given string."""
+  content_contains: String
+
+  """All values not containing the given string."""
+  content_not_contains: String
+
+  """All values starting with the given string."""
+  content_starts_with: String
+
+  """All values not starting with the given string."""
+  content_not_starts_with: String
+
+  """All values ending with the given string."""
+  content_ends_with: String
+
+  """All values not ending with the given string."""
+  content_not_ends_with: String
+  parent: CommentWhereInput
+  children_every: CommentWhereInput
+  children_some: CommentWhereInput
+  children_none: CommentWhereInput
+  postedBy: UserWhereInput
+  discussion: DiscussionWhereInput
+}
+
+input CommentWhereUniqueInput {
+  id: ID
+}
+
+type ContributedItems implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  mandatory: Boolean!
+  user(where: UserWhereInput): User!
+  event(where: EventWhereInput): Event!
+}
+
+"""A connection to a list of items."""
+type ContributedItemsConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ContributedItemsEdge]!
+  aggregate: AggregateContributedItems!
+}
+
+input ContributedItemsCreateInput {
+  name: String!
+  description: String!
+  mandatory: Boolean
+  user: UserCreateOneWithoutItemContributedInput!
+  event: EventCreateOneWithoutContribitedItemsInput!
+}
+
+input ContributedItemsCreateManyWithoutEventInput {
+  create: [ContributedItemsCreateWithoutEventInput!]
+  connect: [ContributedItemsWhereUniqueInput!]
+}
+
+input ContributedItemsCreateOneWithoutUserInput {
+  create: ContributedItemsCreateWithoutUserInput
+  connect: ContributedItemsWhereUniqueInput
+}
+
+input ContributedItemsCreateWithoutEventInput {
+  name: String!
+  description: String!
+  mandatory: Boolean
+  user: UserCreateOneWithoutItemContributedInput!
+}
+
+input ContributedItemsCreateWithoutUserInput {
+  name: String!
+  description: String!
+  mandatory: Boolean
+  event: EventCreateOneWithoutContribitedItemsInput!
+}
+
+"""An edge in a connection."""
+type ContributedItemsEdge {
+  """The item at the end of the edge."""
+  node: ContributedItems!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ContributedItemsOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  mandatory_ASC
+  mandatory_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ContributedItemsPreviousValues {
+  id: ID!
+  name: String!
+  description: String!
+  mandatory: Boolean!
+}
+
+type ContributedItemsSubscriptionPayload {
+  mutation: MutationType!
+  node: ContributedItems
+  updatedFields: [String!]
+  previousValues: ContributedItemsPreviousValues
+}
+
+input ContributedItemsSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContributedItemsSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContributedItemsSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContributedItemsSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ContributedItemsWhereInput
+}
+
+input ContributedItemsUpdateInput {
+  name: String
+  description: String
+  mandatory: Boolean
+  user: UserUpdateOneWithoutItemContributedInput
+  event: EventUpdateOneWithoutContribitedItemsInput
+}
+
+input ContributedItemsUpdateManyWithoutEventInput {
+  create: [ContributedItemsCreateWithoutEventInput!]
+  connect: [ContributedItemsWhereUniqueInput!]
+  disconnect: [ContributedItemsWhereUniqueInput!]
+  delete: [ContributedItemsWhereUniqueInput!]
+  update: [ContributedItemsUpdateWithWhereUniqueWithoutEventInput!]
+  upsert: [ContributedItemsUpsertWithWhereUniqueWithoutEventInput!]
+}
+
+input ContributedItemsUpdateOneWithoutUserInput {
+  create: ContributedItemsCreateWithoutUserInput
+  connect: ContributedItemsWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ContributedItemsUpdateWithoutUserDataInput
+  upsert: ContributedItemsUpsertWithoutUserInput
+}
+
+input ContributedItemsUpdateWithoutEventDataInput {
+  name: String
+  description: String
+  mandatory: Boolean
+  user: UserUpdateOneWithoutItemContributedInput
+}
+
+input ContributedItemsUpdateWithoutUserDataInput {
+  name: String
+  description: String
+  mandatory: Boolean
+  event: EventUpdateOneWithoutContribitedItemsInput
+}
+
+input ContributedItemsUpdateWithWhereUniqueWithoutEventInput {
+  where: ContributedItemsWhereUniqueInput!
+  data: ContributedItemsUpdateWithoutEventDataInput!
+}
+
+input ContributedItemsUpsertWithoutUserInput {
+  update: ContributedItemsUpdateWithoutUserDataInput!
+  create: ContributedItemsCreateWithoutUserInput!
+}
+
+input ContributedItemsUpsertWithWhereUniqueWithoutEventInput {
+  where: ContributedItemsWhereUniqueInput!
+  update: ContributedItemsUpdateWithoutEventDataInput!
+  create: ContributedItemsCreateWithoutEventInput!
+}
+
+input ContributedItemsWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContributedItemsWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContributedItemsWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContributedItemsWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  mandatory: Boolean
+
+  """All values that are not equal to given value."""
+  mandatory_not: Boolean
+  user: UserWhereInput
+  event: EventWhereInput
+}
+
+input ContributedItemsWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+type Discussion implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  approved: Boolean!
+  event(where: EventWhereInput): Event!
+  postedBy(where: UserWhereInput): User!
+  commented(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+}
+
+"""A connection to a list of items."""
+type DiscussionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [DiscussionEdge]!
+  aggregate: AggregateDiscussion!
+}
+
+input DiscussionCreateInput {
+  content: String!
+  approved: Boolean
+  event: EventCreateOneWithoutDiscussionInput!
+  postedBy: UserCreateOneWithoutDiscussionPostedInput!
+  commented: CommentCreateManyWithoutDiscussionInput
+}
+
+input DiscussionCreateManyWithoutEventInput {
+  create: [DiscussionCreateWithoutEventInput!]
+  connect: [DiscussionWhereUniqueInput!]
+}
+
+input DiscussionCreateOneWithoutCommentedInput {
+  create: DiscussionCreateWithoutCommentedInput
+  connect: DiscussionWhereUniqueInput
+}
+
+input DiscussionCreateOneWithoutPostedByInput {
+  create: DiscussionCreateWithoutPostedByInput
+  connect: DiscussionWhereUniqueInput
+}
+
+input DiscussionCreateWithoutCommentedInput {
+  content: String!
+  approved: Boolean
+  event: EventCreateOneWithoutDiscussionInput!
+  postedBy: UserCreateOneWithoutDiscussionPostedInput!
+}
+
+input DiscussionCreateWithoutEventInput {
+  content: String!
+  approved: Boolean
+  postedBy: UserCreateOneWithoutDiscussionPostedInput!
+  commented: CommentCreateManyWithoutDiscussionInput
+}
+
+input DiscussionCreateWithoutPostedByInput {
+  content: String!
+  approved: Boolean
+  event: EventCreateOneWithoutDiscussionInput!
+  commented: CommentCreateManyWithoutDiscussionInput
+}
+
+"""An edge in a connection."""
+type DiscussionEdge {
+  """The item at the end of the edge."""
+  node: Discussion!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum DiscussionOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  content_ASC
+  content_DESC
+  approved_ASC
+  approved_DESC
+}
+
+type DiscussionPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  approved: Boolean!
+}
+
+type DiscussionSubscriptionPayload {
+  mutation: MutationType!
+  node: Discussion
+  updatedFields: [String!]
+  previousValues: DiscussionPreviousValues
+}
+
+input DiscussionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DiscussionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DiscussionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DiscussionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DiscussionWhereInput
+}
+
+input DiscussionUpdateInput {
+  content: String
+  approved: Boolean
+  event: EventUpdateOneWithoutDiscussionInput
+  postedBy: UserUpdateOneWithoutDiscussionPostedInput
+  commented: CommentUpdateManyWithoutDiscussionInput
+}
+
+input DiscussionUpdateManyWithoutEventInput {
+  create: [DiscussionCreateWithoutEventInput!]
+  connect: [DiscussionWhereUniqueInput!]
+  disconnect: [DiscussionWhereUniqueInput!]
+  delete: [DiscussionWhereUniqueInput!]
+  update: [DiscussionUpdateWithWhereUniqueWithoutEventInput!]
+  upsert: [DiscussionUpsertWithWhereUniqueWithoutEventInput!]
+}
+
+input DiscussionUpdateOneWithoutCommentedInput {
+  create: DiscussionCreateWithoutCommentedInput
+  connect: DiscussionWhereUniqueInput
+  delete: Boolean
+  update: DiscussionUpdateWithoutCommentedDataInput
+  upsert: DiscussionUpsertWithoutCommentedInput
+}
+
+input DiscussionUpdateOneWithoutPostedByInput {
+  create: DiscussionCreateWithoutPostedByInput
+  connect: DiscussionWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: DiscussionUpdateWithoutPostedByDataInput
+  upsert: DiscussionUpsertWithoutPostedByInput
+}
+
+input DiscussionUpdateWithoutCommentedDataInput {
+  content: String
+  approved: Boolean
+  event: EventUpdateOneWithoutDiscussionInput
+  postedBy: UserUpdateOneWithoutDiscussionPostedInput
+}
+
+input DiscussionUpdateWithoutEventDataInput {
+  content: String
+  approved: Boolean
+  postedBy: UserUpdateOneWithoutDiscussionPostedInput
+  commented: CommentUpdateManyWithoutDiscussionInput
+}
+
+input DiscussionUpdateWithoutPostedByDataInput {
+  content: String
+  approved: Boolean
+  event: EventUpdateOneWithoutDiscussionInput
+  commented: CommentUpdateManyWithoutDiscussionInput
+}
+
+input DiscussionUpdateWithWhereUniqueWithoutEventInput {
+  where: DiscussionWhereUniqueInput!
+  data: DiscussionUpdateWithoutEventDataInput!
+}
+
+input DiscussionUpsertWithoutCommentedInput {
+  update: DiscussionUpdateWithoutCommentedDataInput!
+  create: DiscussionCreateWithoutCommentedInput!
+}
+
+input DiscussionUpsertWithoutPostedByInput {
+  update: DiscussionUpdateWithoutPostedByDataInput!
+  create: DiscussionCreateWithoutPostedByInput!
+}
+
+input DiscussionUpsertWithWhereUniqueWithoutEventInput {
+  where: DiscussionWhereUniqueInput!
+  update: DiscussionUpdateWithoutEventDataInput!
+  create: DiscussionCreateWithoutEventInput!
+}
+
+input DiscussionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DiscussionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DiscussionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DiscussionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  content: String
+
+  """All values that are not equal to given value."""
+  content_not: String
+
+  """All values that are contained in given list."""
+  content_in: [String!]
+
+  """All values that are not contained in given list."""
+  content_not_in: [String!]
+
+  """All values less than the given value."""
+  content_lt: String
+
+  """All values less than or equal the given value."""
+  content_lte: String
+
+  """All values greater than the given value."""
+  content_gt: String
+
+  """All values greater than or equal the given value."""
+  content_gte: String
+
+  """All values containing the given string."""
+  content_contains: String
+
+  """All values not containing the given string."""
+  content_not_contains: String
+
+  """All values starting with the given string."""
+  content_starts_with: String
+
+  """All values not starting with the given string."""
+  content_not_starts_with: String
+
+  """All values ending with the given string."""
+  content_ends_with: String
+
+  """All values not ending with the given string."""
+  content_not_ends_with: String
+  approved: Boolean
+
+  """All values that are not equal to given value."""
+  approved_not: Boolean
+  event: EventWhereInput
+  postedBy: UserWhereInput
+  commented_every: CommentWhereInput
+  commented_some: CommentWhereInput
+  commented_none: CommentWhereInput
+}
+
+input DiscussionWhereUniqueInput {
+  id: ID
+}
+
+type Event implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  date: DateTime!
+  location(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location!]
+  fund(where: FundWhereInput): Fund!
+  discussion(where: DiscussionWhereInput, orderBy: DiscussionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Discussion!]
+  host(where: UserWhereInput): User!
+  members(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  carpool(where: CarpoolWhereInput, orderBy: CarpoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Carpool!]
+  contribitedItems(where: ContributedItemsWhereInput, orderBy: ContributedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContributedItems!]
+}
+
+"""A connection to a list of items."""
+type EventConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EventEdge]!
+  aggregate: AggregateEvent!
+}
+
+input EventCreateInput {
+  name: String!
+  description: String!
+  date: DateTime!
+  location: LocationCreateManyWithoutEventInput
+  fund: FundCreateOneWithoutEventInput!
+  discussion: DiscussionCreateManyWithoutEventInput
+  host: UserCreateOneWithoutHostEventInput!
+  members: UserCreateManyWithoutMemberOfInput
+  carpool: CarpoolCreateManyWithoutEventInput
+  contribitedItems: ContributedItemsCreateManyWithoutEventInput
+}
+
+input EventCreateOneWithoutCarpoolInput {
+  create: EventCreateWithoutCarpoolInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateOneWithoutContribitedItemsInput {
+  create: EventCreateWithoutContribitedItemsInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateOneWithoutDiscussionInput {
+  create: EventCreateWithoutDiscussionInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateOneWithoutFundInput {
+  create: EventCreateWithoutFundInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateOneWithoutHostInput {
+  create: EventCreateWithoutHostInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateOneWithoutLocationInput {
+  create: EventCreateWithoutLocationInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateOneWithoutMembersInput {
+  create: EventCreateWithoutMembersInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateWithoutCarpoolInput {
+  name: String!
+  description: String!
+  date: DateTime!
+  location: LocationCreateManyWithoutEventInput
+  fund: FundCreateOneWithoutEventInput!
+  discussion: DiscussionCreateManyWithoutEventInput
+  host: UserCreateOneWithoutHostEventInput!
+  members: UserCreateManyWithoutMemberOfInput
+  contribitedItems: ContributedItemsCreateManyWithoutEventInput
+}
+
+input EventCreateWithoutContribitedItemsInput {
+  name: String!
+  description: String!
+  date: DateTime!
+  location: LocationCreateManyWithoutEventInput
+  fund: FundCreateOneWithoutEventInput!
+  discussion: DiscussionCreateManyWithoutEventInput
+  host: UserCreateOneWithoutHostEventInput!
+  members: UserCreateManyWithoutMemberOfInput
+  carpool: CarpoolCreateManyWithoutEventInput
+}
+
+input EventCreateWithoutDiscussionInput {
+  name: String!
+  description: String!
+  date: DateTime!
+  location: LocationCreateManyWithoutEventInput
+  fund: FundCreateOneWithoutEventInput!
+  host: UserCreateOneWithoutHostEventInput!
+  members: UserCreateManyWithoutMemberOfInput
+  carpool: CarpoolCreateManyWithoutEventInput
+  contribitedItems: ContributedItemsCreateManyWithoutEventInput
+}
+
+input EventCreateWithoutFundInput {
+  name: String!
+  description: String!
+  date: DateTime!
+  location: LocationCreateManyWithoutEventInput
+  discussion: DiscussionCreateManyWithoutEventInput
+  host: UserCreateOneWithoutHostEventInput!
+  members: UserCreateManyWithoutMemberOfInput
+  carpool: CarpoolCreateManyWithoutEventInput
+  contribitedItems: ContributedItemsCreateManyWithoutEventInput
+}
+
+input EventCreateWithoutHostInput {
+  name: String!
+  description: String!
+  date: DateTime!
+  location: LocationCreateManyWithoutEventInput
+  fund: FundCreateOneWithoutEventInput!
+  discussion: DiscussionCreateManyWithoutEventInput
+  members: UserCreateManyWithoutMemberOfInput
+  carpool: CarpoolCreateManyWithoutEventInput
+  contribitedItems: ContributedItemsCreateManyWithoutEventInput
+}
+
+input EventCreateWithoutLocationInput {
+  name: String!
+  description: String!
+  date: DateTime!
+  fund: FundCreateOneWithoutEventInput!
+  discussion: DiscussionCreateManyWithoutEventInput
+  host: UserCreateOneWithoutHostEventInput!
+  members: UserCreateManyWithoutMemberOfInput
+  carpool: CarpoolCreateManyWithoutEventInput
+  contribitedItems: ContributedItemsCreateManyWithoutEventInput
+}
+
+input EventCreateWithoutMembersInput {
+  name: String!
+  description: String!
+  date: DateTime!
+  location: LocationCreateManyWithoutEventInput
+  fund: FundCreateOneWithoutEventInput!
+  discussion: DiscussionCreateManyWithoutEventInput
+  host: UserCreateOneWithoutHostEventInput!
+  carpool: CarpoolCreateManyWithoutEventInput
+  contribitedItems: ContributedItemsCreateManyWithoutEventInput
+}
+
+"""An edge in a connection."""
+type EventEdge {
+  """The item at the end of the edge."""
+  node: Event!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum EventOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  date_ASC
+  date_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type EventPreviousValues {
+  id: ID!
+  name: String!
+  description: String!
+  date: DateTime!
+}
+
+type EventSubscriptionPayload {
+  mutation: MutationType!
+  node: Event
+  updatedFields: [String!]
+  previousValues: EventPreviousValues
+}
+
+input EventSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EventSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EventSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EventSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EventWhereInput
+}
+
+input EventUpdateInput {
+  name: String
+  description: String
+  date: DateTime
+  location: LocationUpdateManyWithoutEventInput
+  fund: FundUpdateOneWithoutEventInput
+  discussion: DiscussionUpdateManyWithoutEventInput
+  host: UserUpdateOneWithoutHostEventInput
+  members: UserUpdateManyWithoutMemberOfInput
+  carpool: CarpoolUpdateManyWithoutEventInput
+  contribitedItems: ContributedItemsUpdateManyWithoutEventInput
+}
+
+input EventUpdateOneWithoutCarpoolInput {
+  create: EventCreateWithoutCarpoolInput
+  connect: EventWhereUniqueInput
+  delete: Boolean
+  update: EventUpdateWithoutCarpoolDataInput
+  upsert: EventUpsertWithoutCarpoolInput
+}
+
+input EventUpdateOneWithoutContribitedItemsInput {
+  create: EventCreateWithoutContribitedItemsInput
+  connect: EventWhereUniqueInput
+  delete: Boolean
+  update: EventUpdateWithoutContribitedItemsDataInput
+  upsert: EventUpsertWithoutContribitedItemsInput
+}
+
+input EventUpdateOneWithoutDiscussionInput {
+  create: EventCreateWithoutDiscussionInput
+  connect: EventWhereUniqueInput
+  delete: Boolean
+  update: EventUpdateWithoutDiscussionDataInput
+  upsert: EventUpsertWithoutDiscussionInput
+}
+
+input EventUpdateOneWithoutFundInput {
+  create: EventCreateWithoutFundInput
+  connect: EventWhereUniqueInput
+  delete: Boolean
+  update: EventUpdateWithoutFundDataInput
+  upsert: EventUpsertWithoutFundInput
+}
+
+input EventUpdateOneWithoutHostInput {
+  create: EventCreateWithoutHostInput
+  connect: EventWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: EventUpdateWithoutHostDataInput
+  upsert: EventUpsertWithoutHostInput
+}
+
+input EventUpdateOneWithoutLocationInput {
+  create: EventCreateWithoutLocationInput
+  connect: EventWhereUniqueInput
+  delete: Boolean
+  update: EventUpdateWithoutLocationDataInput
+  upsert: EventUpsertWithoutLocationInput
+}
+
+input EventUpdateOneWithoutMembersInput {
+  create: EventCreateWithoutMembersInput
+  connect: EventWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: EventUpdateWithoutMembersDataInput
+  upsert: EventUpsertWithoutMembersInput
+}
+
+input EventUpdateWithoutCarpoolDataInput {
+  name: String
+  description: String
+  date: DateTime
+  location: LocationUpdateManyWithoutEventInput
+  fund: FundUpdateOneWithoutEventInput
+  discussion: DiscussionUpdateManyWithoutEventInput
+  host: UserUpdateOneWithoutHostEventInput
+  members: UserUpdateManyWithoutMemberOfInput
+  contribitedItems: ContributedItemsUpdateManyWithoutEventInput
+}
+
+input EventUpdateWithoutContribitedItemsDataInput {
+  name: String
+  description: String
+  date: DateTime
+  location: LocationUpdateManyWithoutEventInput
+  fund: FundUpdateOneWithoutEventInput
+  discussion: DiscussionUpdateManyWithoutEventInput
+  host: UserUpdateOneWithoutHostEventInput
+  members: UserUpdateManyWithoutMemberOfInput
+  carpool: CarpoolUpdateManyWithoutEventInput
+}
+
+input EventUpdateWithoutDiscussionDataInput {
+  name: String
+  description: String
+  date: DateTime
+  location: LocationUpdateManyWithoutEventInput
+  fund: FundUpdateOneWithoutEventInput
+  host: UserUpdateOneWithoutHostEventInput
+  members: UserUpdateManyWithoutMemberOfInput
+  carpool: CarpoolUpdateManyWithoutEventInput
+  contribitedItems: ContributedItemsUpdateManyWithoutEventInput
+}
+
+input EventUpdateWithoutFundDataInput {
+  name: String
+  description: String
+  date: DateTime
+  location: LocationUpdateManyWithoutEventInput
+  discussion: DiscussionUpdateManyWithoutEventInput
+  host: UserUpdateOneWithoutHostEventInput
+  members: UserUpdateManyWithoutMemberOfInput
+  carpool: CarpoolUpdateManyWithoutEventInput
+  contribitedItems: ContributedItemsUpdateManyWithoutEventInput
+}
+
+input EventUpdateWithoutHostDataInput {
+  name: String
+  description: String
+  date: DateTime
+  location: LocationUpdateManyWithoutEventInput
+  fund: FundUpdateOneWithoutEventInput
+  discussion: DiscussionUpdateManyWithoutEventInput
+  members: UserUpdateManyWithoutMemberOfInput
+  carpool: CarpoolUpdateManyWithoutEventInput
+  contribitedItems: ContributedItemsUpdateManyWithoutEventInput
+}
+
+input EventUpdateWithoutLocationDataInput {
+  name: String
+  description: String
+  date: DateTime
+  fund: FundUpdateOneWithoutEventInput
+  discussion: DiscussionUpdateManyWithoutEventInput
+  host: UserUpdateOneWithoutHostEventInput
+  members: UserUpdateManyWithoutMemberOfInput
+  carpool: CarpoolUpdateManyWithoutEventInput
+  contribitedItems: ContributedItemsUpdateManyWithoutEventInput
+}
+
+input EventUpdateWithoutMembersDataInput {
+  name: String
+  description: String
+  date: DateTime
+  location: LocationUpdateManyWithoutEventInput
+  fund: FundUpdateOneWithoutEventInput
+  discussion: DiscussionUpdateManyWithoutEventInput
+  host: UserUpdateOneWithoutHostEventInput
+  carpool: CarpoolUpdateManyWithoutEventInput
+  contribitedItems: ContributedItemsUpdateManyWithoutEventInput
+}
+
+input EventUpsertWithoutCarpoolInput {
+  update: EventUpdateWithoutCarpoolDataInput!
+  create: EventCreateWithoutCarpoolInput!
+}
+
+input EventUpsertWithoutContribitedItemsInput {
+  update: EventUpdateWithoutContribitedItemsDataInput!
+  create: EventCreateWithoutContribitedItemsInput!
+}
+
+input EventUpsertWithoutDiscussionInput {
+  update: EventUpdateWithoutDiscussionDataInput!
+  create: EventCreateWithoutDiscussionInput!
+}
+
+input EventUpsertWithoutFundInput {
+  update: EventUpdateWithoutFundDataInput!
+  create: EventCreateWithoutFundInput!
+}
+
+input EventUpsertWithoutHostInput {
+  update: EventUpdateWithoutHostDataInput!
+  create: EventCreateWithoutHostInput!
+}
+
+input EventUpsertWithoutLocationInput {
+  update: EventUpdateWithoutLocationDataInput!
+  create: EventCreateWithoutLocationInput!
+}
+
+input EventUpsertWithoutMembersInput {
+  update: EventUpdateWithoutMembersDataInput!
+  create: EventCreateWithoutMembersInput!
+}
+
+input EventWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EventWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EventWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EventWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  location_every: LocationWhereInput
+  location_some: LocationWhereInput
+  location_none: LocationWhereInput
+  fund: FundWhereInput
+  discussion_every: DiscussionWhereInput
+  discussion_some: DiscussionWhereInput
+  discussion_none: DiscussionWhereInput
+  host: UserWhereInput
+  members_every: UserWhereInput
+  members_some: UserWhereInput
+  members_none: UserWhereInput
+  carpool_every: CarpoolWhereInput
+  carpool_some: CarpoolWhereInput
+  carpool_none: CarpoolWhereInput
+  contribitedItems_every: ContributedItemsWhereInput
+  contribitedItems_some: ContributedItemsWhereInput
+  contribitedItems_none: ContributedItemsWhereInput
+}
+
+input EventWhereUniqueInput {
+  id: ID
+}
+
+type Fund implements Node {
+  id: ID!
+  estimated: Float!
+  current: Float!
+  user(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  event(where: EventWhereInput): Event!
+}
+
+"""A connection to a list of items."""
+type FundConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FundEdge]!
+  aggregate: AggregateFund!
+}
+
+input FundCreateInput {
+  estimated: Float!
+  current: Float!
+  user: UserCreateManyWithoutFundContributedInput
+  event: EventCreateOneWithoutFundInput!
+}
+
+input FundCreateOneWithoutEventInput {
+  create: FundCreateWithoutEventInput
+  connect: FundWhereUniqueInput
+}
+
+input FundCreateOneWithoutUserInput {
+  create: FundCreateWithoutUserInput
+  connect: FundWhereUniqueInput
+}
+
+input FundCreateWithoutEventInput {
+  estimated: Float!
+  current: Float!
+  user: UserCreateManyWithoutFundContributedInput
+}
+
+input FundCreateWithoutUserInput {
+  estimated: Float!
+  current: Float!
+  event: EventCreateOneWithoutFundInput!
+}
+
+"""An edge in a connection."""
+type FundEdge {
+  """The item at the end of the edge."""
+  node: Fund!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FundOrderByInput {
+  id_ASC
+  id_DESC
+  estimated_ASC
+  estimated_DESC
+  current_ASC
+  current_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type FundPreviousValues {
+  id: ID!
+  estimated: Float!
+  current: Float!
+}
+
+type FundRaisedItems implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  mandatory: Boolean!
+  fundCost: Float!
+}
+
+"""A connection to a list of items."""
+type FundRaisedItemsConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FundRaisedItemsEdge]!
+  aggregate: AggregateFundRaisedItems!
+}
+
+input FundRaisedItemsCreateInput {
+  name: String!
+  description: String!
+  mandatory: Boolean
+  fundCost: Float!
+}
+
+"""An edge in a connection."""
+type FundRaisedItemsEdge {
+  """The item at the end of the edge."""
+  node: FundRaisedItems!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FundRaisedItemsOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  mandatory_ASC
+  mandatory_DESC
+  fundCost_ASC
+  fundCost_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type FundRaisedItemsPreviousValues {
+  id: ID!
+  name: String!
+  description: String!
+  mandatory: Boolean!
+  fundCost: Float!
+}
+
+type FundRaisedItemsSubscriptionPayload {
+  mutation: MutationType!
+  node: FundRaisedItems
+  updatedFields: [String!]
+  previousValues: FundRaisedItemsPreviousValues
+}
+
+input FundRaisedItemsSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FundRaisedItemsSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FundRaisedItemsSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FundRaisedItemsSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FundRaisedItemsWhereInput
+}
+
+input FundRaisedItemsUpdateInput {
+  name: String
+  description: String
+  mandatory: Boolean
+  fundCost: Float
+}
+
+input FundRaisedItemsWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FundRaisedItemsWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FundRaisedItemsWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FundRaisedItemsWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  mandatory: Boolean
+
+  """All values that are not equal to given value."""
+  mandatory_not: Boolean
+  fundCost: Float
+
+  """All values that are not equal to given value."""
+  fundCost_not: Float
+
+  """All values that are contained in given list."""
+  fundCost_in: [Float!]
+
+  """All values that are not contained in given list."""
+  fundCost_not_in: [Float!]
+
+  """All values less than the given value."""
+  fundCost_lt: Float
+
+  """All values less than or equal the given value."""
+  fundCost_lte: Float
+
+  """All values greater than the given value."""
+  fundCost_gt: Float
+
+  """All values greater than or equal the given value."""
+  fundCost_gte: Float
+}
+
+input FundRaisedItemsWhereUniqueInput {
+  id: ID
+}
+
+type FundSubscriptionPayload {
+  mutation: MutationType!
+  node: Fund
+  updatedFields: [String!]
+  previousValues: FundPreviousValues
+}
+
+input FundSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FundSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FundSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FundSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FundWhereInput
+}
+
+input FundUpdateInput {
+  estimated: Float
+  current: Float
+  user: UserUpdateManyWithoutFundContributedInput
+  event: EventUpdateOneWithoutFundInput
+}
+
+input FundUpdateOneWithoutEventInput {
+  create: FundCreateWithoutEventInput
+  connect: FundWhereUniqueInput
+  delete: Boolean
+  update: FundUpdateWithoutEventDataInput
+  upsert: FundUpsertWithoutEventInput
+}
+
+input FundUpdateOneWithoutUserInput {
+  create: FundCreateWithoutUserInput
+  connect: FundWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FundUpdateWithoutUserDataInput
+  upsert: FundUpsertWithoutUserInput
+}
+
+input FundUpdateWithoutEventDataInput {
+  estimated: Float
+  current: Float
+  user: UserUpdateManyWithoutFundContributedInput
+}
+
+input FundUpdateWithoutUserDataInput {
+  estimated: Float
+  current: Float
+  event: EventUpdateOneWithoutFundInput
+}
+
+input FundUpsertWithoutEventInput {
+  update: FundUpdateWithoutEventDataInput!
+  create: FundCreateWithoutEventInput!
+}
+
+input FundUpsertWithoutUserInput {
+  update: FundUpdateWithoutUserDataInput!
+  create: FundCreateWithoutUserInput!
+}
+
+input FundWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FundWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FundWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FundWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  estimated: Float
+
+  """All values that are not equal to given value."""
+  estimated_not: Float
+
+  """All values that are contained in given list."""
+  estimated_in: [Float!]
+
+  """All values that are not contained in given list."""
+  estimated_not_in: [Float!]
+
+  """All values less than the given value."""
+  estimated_lt: Float
+
+  """All values less than or equal the given value."""
+  estimated_lte: Float
+
+  """All values greater than the given value."""
+  estimated_gt: Float
+
+  """All values greater than or equal the given value."""
+  estimated_gte: Float
+  current: Float
+
+  """All values that are not equal to given value."""
+  current_not: Float
+
+  """All values that are contained in given list."""
+  current_in: [Float!]
+
+  """All values that are not contained in given list."""
+  current_not_in: [Float!]
+
+  """All values less than the given value."""
+  current_lt: Float
+
+  """All values less than or equal the given value."""
+  current_lte: Float
+
+  """All values greater than the given value."""
+  current_gt: Float
+
+  """All values greater than or equal the given value."""
+  current_gte: Float
+  user_every: UserWhereInput
+  user_some: UserWhereInput
+  user_none: UserWhereInput
+  event: EventWhereInput
+}
+
+input FundWhereUniqueInput {
+  id: ID
+}
+
+type Location implements Node {
+  id: ID!
+  address: String!
+  description: String!
+  priority: String!
+  startTime: DateTime
+  endTime: DateTime
+  event(where: EventWhereInput): Event!
+}
+
+"""A connection to a list of items."""
+type LocationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [LocationEdge]!
+  aggregate: AggregateLocation!
+}
+
+input LocationCreateInput {
+  address: String!
+  description: String!
+  priority: String!
+  startTime: DateTime
+  endTime: DateTime
+  event: EventCreateOneWithoutLocationInput!
+}
+
+input LocationCreateManyWithoutEventInput {
+  create: [LocationCreateWithoutEventInput!]
+  connect: [LocationWhereUniqueInput!]
+}
+
+input LocationCreateWithoutEventInput {
+  address: String!
+  description: String!
+  priority: String!
+  startTime: DateTime
+  endTime: DateTime
+}
+
+"""An edge in a connection."""
+type LocationEdge {
+  """The item at the end of the edge."""
+  node: Location!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum LocationOrderByInput {
+  id_ASC
+  id_DESC
+  address_ASC
+  address_DESC
+  description_ASC
+  description_DESC
+  priority_ASC
+  priority_DESC
+  startTime_ASC
+  startTime_DESC
+  endTime_ASC
+  endTime_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type LocationPreviousValues {
+  id: ID!
+  address: String!
+  description: String!
+  priority: String!
+  startTime: DateTime
+  endTime: DateTime
+}
+
+type LocationSubscriptionPayload {
+  mutation: MutationType!
+  node: Location
+  updatedFields: [String!]
+  previousValues: LocationPreviousValues
+}
+
+input LocationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: LocationWhereInput
+}
+
+input LocationUpdateInput {
+  address: String
+  description: String
+  priority: String
+  startTime: DateTime
+  endTime: DateTime
+  event: EventUpdateOneWithoutLocationInput
+}
+
+input LocationUpdateManyWithoutEventInput {
+  create: [LocationCreateWithoutEventInput!]
+  connect: [LocationWhereUniqueInput!]
+  disconnect: [LocationWhereUniqueInput!]
+  delete: [LocationWhereUniqueInput!]
+  update: [LocationUpdateWithWhereUniqueWithoutEventInput!]
+  upsert: [LocationUpsertWithWhereUniqueWithoutEventInput!]
+}
+
+input LocationUpdateWithoutEventDataInput {
+  address: String
+  description: String
+  priority: String
+  startTime: DateTime
+  endTime: DateTime
+}
+
+input LocationUpdateWithWhereUniqueWithoutEventInput {
+  where: LocationWhereUniqueInput!
+  data: LocationUpdateWithoutEventDataInput!
+}
+
+input LocationUpsertWithWhereUniqueWithoutEventInput {
+  where: LocationWhereUniqueInput!
+  update: LocationUpdateWithoutEventDataInput!
+  create: LocationCreateWithoutEventInput!
+}
+
+input LocationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  address: String
+
+  """All values that are not equal to given value."""
+  address_not: String
+
+  """All values that are contained in given list."""
+  address_in: [String!]
+
+  """All values that are not contained in given list."""
+  address_not_in: [String!]
+
+  """All values less than the given value."""
+  address_lt: String
+
+  """All values less than or equal the given value."""
+  address_lte: String
+
+  """All values greater than the given value."""
+  address_gt: String
+
+  """All values greater than or equal the given value."""
+  address_gte: String
+
+  """All values containing the given string."""
+  address_contains: String
+
+  """All values not containing the given string."""
+  address_not_contains: String
+
+  """All values starting with the given string."""
+  address_starts_with: String
+
+  """All values not starting with the given string."""
+  address_not_starts_with: String
+
+  """All values ending with the given string."""
+  address_ends_with: String
+
+  """All values not ending with the given string."""
+  address_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  priority: String
+
+  """All values that are not equal to given value."""
+  priority_not: String
+
+  """All values that are contained in given list."""
+  priority_in: [String!]
+
+  """All values that are not contained in given list."""
+  priority_not_in: [String!]
+
+  """All values less than the given value."""
+  priority_lt: String
+
+  """All values less than or equal the given value."""
+  priority_lte: String
+
+  """All values greater than the given value."""
+  priority_gt: String
+
+  """All values greater than or equal the given value."""
+  priority_gte: String
+
+  """All values containing the given string."""
+  priority_contains: String
+
+  """All values not containing the given string."""
+  priority_not_contains: String
+
+  """All values starting with the given string."""
+  priority_starts_with: String
+
+  """All values not starting with the given string."""
+  priority_not_starts_with: String
+
+  """All values ending with the given string."""
+  priority_ends_with: String
+
+  """All values not ending with the given string."""
+  priority_not_ends_with: String
+  startTime: DateTime
+
+  """All values that are not equal to given value."""
+  startTime_not: DateTime
+
+  """All values that are contained in given list."""
+  startTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  startTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  startTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  startTime_lte: DateTime
+
+  """All values greater than the given value."""
+  startTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  startTime_gte: DateTime
+  endTime: DateTime
+
+  """All values that are not equal to given value."""
+  endTime_not: DateTime
+
+  """All values that are contained in given list."""
+  endTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  endTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  endTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  endTime_lte: DateTime
+
+  """All values greater than the given value."""
+  endTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  endTime_gte: DateTime
+  event: EventWhereInput
+}
+
+input LocationWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createEvent(data: EventCreateInput!): Event!
+  createLocation(data: LocationCreateInput!): Location!
+  createCarpoolLocation(data: CarpoolLocationCreateInput!): CarpoolLocation!
+  createCarpool(data: CarpoolCreateInput!): Carpool!
+  createUser(data: UserCreateInput!): User!
+  createDiscussion(data: DiscussionCreateInput!): Discussion!
+  createComment(data: CommentCreateInput!): Comment!
+  createFund(data: FundCreateInput!): Fund!
+  createFundRaisedItems(data: FundRaisedItemsCreateInput!): FundRaisedItems!
+  createContributedItems(data: ContributedItemsCreateInput!): ContributedItems!
+  updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
+  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
+  updateCarpoolLocation(data: CarpoolLocationUpdateInput!, where: CarpoolLocationWhereUniqueInput!): CarpoolLocation
+  updateCarpool(data: CarpoolUpdateInput!, where: CarpoolWhereUniqueInput!): Carpool
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateDiscussion(data: DiscussionUpdateInput!, where: DiscussionWhereUniqueInput!): Discussion
+  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
+  updateFund(data: FundUpdateInput!, where: FundWhereUniqueInput!): Fund
+  updateFundRaisedItems(data: FundRaisedItemsUpdateInput!, where: FundRaisedItemsWhereUniqueInput!): FundRaisedItems
+  updateContributedItems(data: ContributedItemsUpdateInput!, where: ContributedItemsWhereUniqueInput!): ContributedItems
+  deleteEvent(where: EventWhereUniqueInput!): Event
+  deleteLocation(where: LocationWhereUniqueInput!): Location
+  deleteCarpoolLocation(where: CarpoolLocationWhereUniqueInput!): CarpoolLocation
+  deleteCarpool(where: CarpoolWhereUniqueInput!): Carpool
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteDiscussion(where: DiscussionWhereUniqueInput!): Discussion
+  deleteComment(where: CommentWhereUniqueInput!): Comment
+  deleteFund(where: FundWhereUniqueInput!): Fund
+  deleteFundRaisedItems(where: FundRaisedItemsWhereUniqueInput!): FundRaisedItems
+  deleteContributedItems(where: ContributedItemsWhereUniqueInput!): ContributedItems
+  upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
+  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
+  upsertCarpoolLocation(where: CarpoolLocationWhereUniqueInput!, create: CarpoolLocationCreateInput!, update: CarpoolLocationUpdateInput!): CarpoolLocation!
+  upsertCarpool(where: CarpoolWhereUniqueInput!, create: CarpoolCreateInput!, update: CarpoolUpdateInput!): Carpool!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertDiscussion(where: DiscussionWhereUniqueInput!, create: DiscussionCreateInput!, update: DiscussionUpdateInput!): Discussion!
+  upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
+  upsertFund(where: FundWhereUniqueInput!, create: FundCreateInput!, update: FundUpdateInput!): Fund!
+  upsertFundRaisedItems(where: FundRaisedItemsWhereUniqueInput!, create: FundRaisedItemsCreateInput!, update: FundRaisedItemsUpdateInput!): FundRaisedItems!
+  upsertContributedItems(where: ContributedItemsWhereUniqueInput!, create: ContributedItemsCreateInput!, update: ContributedItemsUpdateInput!): ContributedItems!
+  updateManyEvents(data: EventUpdateInput!, where: EventWhereInput): BatchPayload!
+  updateManyLocations(data: LocationUpdateInput!, where: LocationWhereInput): BatchPayload!
+  updateManyCarpoolLocations(data: CarpoolLocationUpdateInput!, where: CarpoolLocationWhereInput): BatchPayload!
+  updateManyCarpools(data: CarpoolUpdateInput!, where: CarpoolWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyDiscussions(data: DiscussionUpdateInput!, where: DiscussionWhereInput): BatchPayload!
+  updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
+  updateManyFunds(data: FundUpdateInput!, where: FundWhereInput): BatchPayload!
+  updateManyFundRaisedItemses(data: FundRaisedItemsUpdateInput!, where: FundRaisedItemsWhereInput): BatchPayload!
+  updateManyContributedItemses(data: ContributedItemsUpdateInput!, where: ContributedItemsWhereInput): BatchPayload!
+  deleteManyEvents(where: EventWhereInput): BatchPayload!
+  deleteManyLocations(where: LocationWhereInput): BatchPayload!
+  deleteManyCarpoolLocations(where: CarpoolLocationWhereInput): BatchPayload!
+  deleteManyCarpools(where: CarpoolWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyDiscussions(where: DiscussionWhereInput): BatchPayload!
+  deleteManyComments(where: CommentWhereInput): BatchPayload!
+  deleteManyFunds(where: FundWhereInput): BatchPayload!
+  deleteManyFundRaisedItemses(where: FundRaisedItemsWhereInput): BatchPayload!
+  deleteManyContributedItemses(where: ContributedItemsWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
+  locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
+  carpoolLocations(where: CarpoolLocationWhereInput, orderBy: CarpoolLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CarpoolLocation]!
+  carpools(where: CarpoolWhereInput, orderBy: CarpoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Carpool]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  discussions(where: DiscussionWhereInput, orderBy: DiscussionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Discussion]!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
+  funds(where: FundWhereInput, orderBy: FundOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Fund]!
+  fundRaisedItemses(where: FundRaisedItemsWhereInput, orderBy: FundRaisedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FundRaisedItems]!
+  contributedItemses(where: ContributedItemsWhereInput, orderBy: ContributedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContributedItems]!
+  event(where: EventWhereUniqueInput!): Event
+  location(where: LocationWhereUniqueInput!): Location
+  carpoolLocation(where: CarpoolLocationWhereUniqueInput!): CarpoolLocation
+  carpool(where: CarpoolWhereUniqueInput!): Carpool
+  user(where: UserWhereUniqueInput!): User
+  discussion(where: DiscussionWhereUniqueInput!): Discussion
+  comment(where: CommentWhereUniqueInput!): Comment
+  fund(where: FundWhereUniqueInput!): Fund
+  fundRaisedItems(where: FundRaisedItemsWhereUniqueInput!): FundRaisedItems
+  contributedItems(where: ContributedItemsWhereUniqueInput!): ContributedItems
+  eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
+  locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
+  carpoolLocationsConnection(where: CarpoolLocationWhereInput, orderBy: CarpoolLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CarpoolLocationConnection!
+  carpoolsConnection(where: CarpoolWhereInput, orderBy: CarpoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CarpoolConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  discussionsConnection(where: DiscussionWhereInput, orderBy: DiscussionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DiscussionConnection!
+  commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
+  fundsConnection(where: FundWhereInput, orderBy: FundOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FundConnection!
+  fundRaisedItemsesConnection(where: FundRaisedItemsWhereInput, orderBy: FundRaisedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FundRaisedItemsConnection!
+  contributedItemsesConnection(where: ContributedItemsWhereInput, orderBy: ContributedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContributedItemsConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
+  location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
+  carpoolLocation(where: CarpoolLocationSubscriptionWhereInput): CarpoolLocationSubscriptionPayload
+  carpool(where: CarpoolSubscriptionWhereInput): CarpoolSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  discussion(where: DiscussionSubscriptionWhereInput): DiscussionSubscriptionPayload
+  comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
+  fund(where: FundSubscriptionWhereInput): FundSubscriptionPayload
+  fundRaisedItems(where: FundRaisedItemsSubscriptionWhereInput): FundRaisedItemsSubscriptionPayload
+  contributedItems(where: ContributedItemsSubscriptionWhereInput): ContributedItemsSubscriptionPayload
+}
+
+type User implements Node {
+  id: ID!
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+  discussionPosted(where: DiscussionWhereInput): Discussion
+  hostEvent(where: EventWhereInput): Event
+  memberOf(where: EventWhereInput): Event
+  fundContributed(where: FundWhereInput): Fund
+  itemContributed(where: ContributedItemsWhereInput): ContributedItems
+  commentPosted(where: CommentWhereInput): Comment
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+  discussionPosted: DiscussionCreateOneWithoutPostedByInput
+  hostEvent: EventCreateOneWithoutHostInput
+  memberOf: EventCreateOneWithoutMembersInput
+  fundContributed: FundCreateOneWithoutUserInput
+  itemContributed: ContributedItemsCreateOneWithoutUserInput
+  commentPosted: CommentCreateOneWithoutPostedByInput
+}
+
+input UserCreateManyWithoutFundContributedInput {
+  create: [UserCreateWithoutFundContributedInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutMemberOfInput {
+  create: [UserCreateWithoutMemberOfInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneWithoutCommentPostedInput {
+  create: UserCreateWithoutCommentPostedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutDiscussionPostedInput {
+  create: UserCreateWithoutDiscussionPostedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutHostEventInput {
+  create: UserCreateWithoutHostEventInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutItemContributedInput {
+  create: UserCreateWithoutItemContributedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutCommentPostedInput {
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+  discussionPosted: DiscussionCreateOneWithoutPostedByInput
+  hostEvent: EventCreateOneWithoutHostInput
+  memberOf: EventCreateOneWithoutMembersInput
+  fundContributed: FundCreateOneWithoutUserInput
+  itemContributed: ContributedItemsCreateOneWithoutUserInput
+}
+
+input UserCreateWithoutDiscussionPostedInput {
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+  hostEvent: EventCreateOneWithoutHostInput
+  memberOf: EventCreateOneWithoutMembersInput
+  fundContributed: FundCreateOneWithoutUserInput
+  itemContributed: ContributedItemsCreateOneWithoutUserInput
+  commentPosted: CommentCreateOneWithoutPostedByInput
+}
+
+input UserCreateWithoutFundContributedInput {
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+  discussionPosted: DiscussionCreateOneWithoutPostedByInput
+  hostEvent: EventCreateOneWithoutHostInput
+  memberOf: EventCreateOneWithoutMembersInput
+  itemContributed: ContributedItemsCreateOneWithoutUserInput
+  commentPosted: CommentCreateOneWithoutPostedByInput
+}
+
+input UserCreateWithoutHostEventInput {
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+  discussionPosted: DiscussionCreateOneWithoutPostedByInput
+  memberOf: EventCreateOneWithoutMembersInput
+  fundContributed: FundCreateOneWithoutUserInput
+  itemContributed: ContributedItemsCreateOneWithoutUserInput
+  commentPosted: CommentCreateOneWithoutPostedByInput
+}
+
+input UserCreateWithoutItemContributedInput {
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+  discussionPosted: DiscussionCreateOneWithoutPostedByInput
+  hostEvent: EventCreateOneWithoutHostInput
+  memberOf: EventCreateOneWithoutMembersInput
+  fundContributed: FundCreateOneWithoutUserInput
+  commentPosted: CommentCreateOneWithoutPostedByInput
+}
+
+input UserCreateWithoutMemberOfInput {
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+  discussionPosted: DiscussionCreateOneWithoutPostedByInput
+  hostEvent: EventCreateOneWithoutHostInput
+  fundContributed: FundCreateOneWithoutUserInput
+  itemContributed: ContributedItemsCreateOneWithoutUserInput
+  commentPosted: CommentCreateOneWithoutPostedByInput
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  username_ASC
+  username_DESC
+  password_ASC
+  password_DESC
+  realName_ASC
+  realName_DESC
+  phone_ASC
+  phone_DESC
+  email_ASC
+  email_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  username: String!
+  password: String!
+  realName: String!
+  phone: String!
+  email: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateInput {
+  username: String
+  password: String
+  realName: String
+  phone: String
+  email: String
+  discussionPosted: DiscussionUpdateOneWithoutPostedByInput
+  hostEvent: EventUpdateOneWithoutHostInput
+  memberOf: EventUpdateOneWithoutMembersInput
+  fundContributed: FundUpdateOneWithoutUserInput
+  itemContributed: ContributedItemsUpdateOneWithoutUserInput
+  commentPosted: CommentUpdateOneWithoutPostedByInput
+}
+
+input UserUpdateManyWithoutFundContributedInput {
+  create: [UserCreateWithoutFundContributedInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFundContributedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFundContributedInput!]
+}
+
+input UserUpdateManyWithoutMemberOfInput {
+  create: [UserCreateWithoutMemberOfInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutMemberOfInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutMemberOfInput!]
+}
+
+input UserUpdateOneWithoutCommentPostedInput {
+  create: UserCreateWithoutCommentPostedInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutCommentPostedDataInput
+  upsert: UserUpsertWithoutCommentPostedInput
+}
+
+input UserUpdateOneWithoutDiscussionPostedInput {
+  create: UserCreateWithoutDiscussionPostedInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutDiscussionPostedDataInput
+  upsert: UserUpsertWithoutDiscussionPostedInput
+}
+
+input UserUpdateOneWithoutHostEventInput {
+  create: UserCreateWithoutHostEventInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutHostEventDataInput
+  upsert: UserUpsertWithoutHostEventInput
+}
+
+input UserUpdateOneWithoutItemContributedInput {
+  create: UserCreateWithoutItemContributedInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateWithoutItemContributedDataInput
+  upsert: UserUpsertWithoutItemContributedInput
+}
+
+input UserUpdateWithoutCommentPostedDataInput {
+  username: String
+  password: String
+  realName: String
+  phone: String
+  email: String
+  discussionPosted: DiscussionUpdateOneWithoutPostedByInput
+  hostEvent: EventUpdateOneWithoutHostInput
+  memberOf: EventUpdateOneWithoutMembersInput
+  fundContributed: FundUpdateOneWithoutUserInput
+  itemContributed: ContributedItemsUpdateOneWithoutUserInput
+}
+
+input UserUpdateWithoutDiscussionPostedDataInput {
+  username: String
+  password: String
+  realName: String
+  phone: String
+  email: String
+  hostEvent: EventUpdateOneWithoutHostInput
+  memberOf: EventUpdateOneWithoutMembersInput
+  fundContributed: FundUpdateOneWithoutUserInput
+  itemContributed: ContributedItemsUpdateOneWithoutUserInput
+  commentPosted: CommentUpdateOneWithoutPostedByInput
+}
+
+input UserUpdateWithoutFundContributedDataInput {
+  username: String
+  password: String
+  realName: String
+  phone: String
+  email: String
+  discussionPosted: DiscussionUpdateOneWithoutPostedByInput
+  hostEvent: EventUpdateOneWithoutHostInput
+  memberOf: EventUpdateOneWithoutMembersInput
+  itemContributed: ContributedItemsUpdateOneWithoutUserInput
+  commentPosted: CommentUpdateOneWithoutPostedByInput
+}
+
+input UserUpdateWithoutHostEventDataInput {
+  username: String
+  password: String
+  realName: String
+  phone: String
+  email: String
+  discussionPosted: DiscussionUpdateOneWithoutPostedByInput
+  memberOf: EventUpdateOneWithoutMembersInput
+  fundContributed: FundUpdateOneWithoutUserInput
+  itemContributed: ContributedItemsUpdateOneWithoutUserInput
+  commentPosted: CommentUpdateOneWithoutPostedByInput
+}
+
+input UserUpdateWithoutItemContributedDataInput {
+  username: String
+  password: String
+  realName: String
+  phone: String
+  email: String
+  discussionPosted: DiscussionUpdateOneWithoutPostedByInput
+  hostEvent: EventUpdateOneWithoutHostInput
+  memberOf: EventUpdateOneWithoutMembersInput
+  fundContributed: FundUpdateOneWithoutUserInput
+  commentPosted: CommentUpdateOneWithoutPostedByInput
+}
+
+input UserUpdateWithoutMemberOfDataInput {
+  username: String
+  password: String
+  realName: String
+  phone: String
+  email: String
+  discussionPosted: DiscussionUpdateOneWithoutPostedByInput
+  hostEvent: EventUpdateOneWithoutHostInput
+  fundContributed: FundUpdateOneWithoutUserInput
+  itemContributed: ContributedItemsUpdateOneWithoutUserInput
+  commentPosted: CommentUpdateOneWithoutPostedByInput
+}
+
+input UserUpdateWithWhereUniqueWithoutFundContributedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFundContributedDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutMemberOfInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutMemberOfDataInput!
+}
+
+input UserUpsertWithoutCommentPostedInput {
+  update: UserUpdateWithoutCommentPostedDataInput!
+  create: UserCreateWithoutCommentPostedInput!
+}
+
+input UserUpsertWithoutDiscussionPostedInput {
+  update: UserUpdateWithoutDiscussionPostedDataInput!
+  create: UserCreateWithoutDiscussionPostedInput!
+}
+
+input UserUpsertWithoutHostEventInput {
+  update: UserUpdateWithoutHostEventDataInput!
+  create: UserCreateWithoutHostEventInput!
+}
+
+input UserUpsertWithoutItemContributedInput {
+  update: UserUpdateWithoutItemContributedDataInput!
+  create: UserCreateWithoutItemContributedInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutFundContributedInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFundContributedDataInput!
+  create: UserCreateWithoutFundContributedInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutMemberOfInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutMemberOfDataInput!
+  create: UserCreateWithoutMemberOfInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  username: String
+
+  """All values that are not equal to given value."""
+  username_not: String
+
+  """All values that are contained in given list."""
+  username_in: [String!]
+
+  """All values that are not contained in given list."""
+  username_not_in: [String!]
+
+  """All values less than the given value."""
+  username_lt: String
+
+  """All values less than or equal the given value."""
+  username_lte: String
+
+  """All values greater than the given value."""
+  username_gt: String
+
+  """All values greater than or equal the given value."""
+  username_gte: String
+
+  """All values containing the given string."""
+  username_contains: String
+
+  """All values not containing the given string."""
+  username_not_contains: String
+
+  """All values starting with the given string."""
+  username_starts_with: String
+
+  """All values not starting with the given string."""
+  username_not_starts_with: String
+
+  """All values ending with the given string."""
+  username_ends_with: String
+
+  """All values not ending with the given string."""
+  username_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  realName: String
+
+  """All values that are not equal to given value."""
+  realName_not: String
+
+  """All values that are contained in given list."""
+  realName_in: [String!]
+
+  """All values that are not contained in given list."""
+  realName_not_in: [String!]
+
+  """All values less than the given value."""
+  realName_lt: String
+
+  """All values less than or equal the given value."""
+  realName_lte: String
+
+  """All values greater than the given value."""
+  realName_gt: String
+
+  """All values greater than or equal the given value."""
+  realName_gte: String
+
+  """All values containing the given string."""
+  realName_contains: String
+
+  """All values not containing the given string."""
+  realName_not_contains: String
+
+  """All values starting with the given string."""
+  realName_starts_with: String
+
+  """All values not starting with the given string."""
+  realName_not_starts_with: String
+
+  """All values ending with the given string."""
+  realName_ends_with: String
+
+  """All values not ending with the given string."""
+  realName_not_ends_with: String
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  discussionPosted: DiscussionWhereInput
+  hostEvent: EventWhereInput
+  memberOf: EventWhereInput
+  fundContributed: FundWhereInput
+  itemContributed: ContributedItemsWhereInput
+  commentPosted: CommentWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
+}

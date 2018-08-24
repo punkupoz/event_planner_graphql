@@ -1,0 +1,24 @@
+# import Event from './generated/prisma.graphql'
+# import Location from './generated/prisma.graphql'
+# import User from './generated/prisma.graphql'
+# import Carpool from './generated/prisma.graphql'
+# import CarpoolLocation from './generated/prisma.graphql'
+# import Discussion from './generated/prisma.graphql'
+# import Comment from './generated/prisma.graphql'
+# import Fund from './generated/prisma.graphql'
+# import FundRaisedItems from './generated/prisma.graphql'
+# import ContributedItems from './generated/prisma.graphql'
+
+type Query {
+	users: User
+}
+
+type Mutation {
+	createUser(
+		username: String!,
+		password: String!,
+		realName: String!,
+		phone: String!,
+		email: String!
+	): User!
+}
