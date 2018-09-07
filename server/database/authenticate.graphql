@@ -1,0 +1,11 @@
+#import User from './datamodel.graphql'
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type ClNe {
+	no: Int!
+	user: User!
+}

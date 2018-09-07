@@ -1,42 +1,30 @@
-const { GraphQLServer } = require('graphql-yoga')
-const { Prisma } = require('prisma-binding')
+import express from "express";
+import gql from "graphql-tag";
 
-const resolvers = {
-  Query: {
-    users: (_, args, context, info) => {
-      return context.prisma.query.users(
-          {},
-          info
-        );
-    }
-  },
-  Mutation: {
-    createUser: (_, args, context, info) => {
-      return context.prisma.mutation.createUser(
-          {
-            data: {
-              username: args.username,
-              password: args.password,
-              realName: args.realName,
-              phone: args.phone,
-              email: args.email
-            },
-          },
-          info
-        )
-    }
-  }
-}
+const { createApolloFetch } = require('apollo-fetch');
 
-const server = new GraphQLServer({
-  typeDefs: 'src/schema.graphql',
-  resolvers,
-  context: req => ({
-    ...req,
-    prisma: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
-      endpoint: 'http://localhost:4466',
-    }),
-  }),
+const app = express();
+
+const fetch = createApolloFetch({
+  uri: 'http://localhost:4000'
 })
-server.start(() => console.log(`GraphQL server is running on http://localhost:4000`))
+
+app.get('/', (req, res) => {
+  fetch({
+    query: `
+      query {
+        users{
+          id
+          email
+        }
+      }
+    `
+  }).then(data => {
+    console.log(data)
+    res.send(data.data);
+  })
+});
+
+app.listen(3000, () => {
+  console.log('Listening on port 3000')
+});

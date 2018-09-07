@@ -1,11 +1,19 @@
 # source: http://localhost:4466
-# timestamp: Sat Aug 25 2018 00:23:17 GMT+1000 (AEST)
+# timestamp: Wed Aug 29 2018 17:31:26 GMT+1000 (Australian Eastern Standard Time)
+
+type AggregateAuthPayload {
+  count: Int!
+}
 
 type AggregateCarpool {
   count: Int!
 }
 
 type AggregateCarpoolLocation {
+  count: Int!
+}
+
+type AggregateClNe {
   count: Int!
 }
 
@@ -39,6 +47,146 @@ type AggregateLocation {
 
 type AggregateUser {
   count: Int!
+}
+
+type AuthPayload {
+  token: String!
+  user(where: UserWhereInput): User!
+}
+
+"""A connection to a list of items."""
+type AuthPayloadConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AuthPayloadEdge]!
+  aggregate: AggregateAuthPayload!
+}
+
+input AuthPayloadCreateInput {
+  token: String!
+  user: UserCreateOneInput!
+}
+
+"""An edge in a connection."""
+type AuthPayloadEdge {
+  """The item at the end of the edge."""
+  node: AuthPayload!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AuthPayloadOrderByInput {
+  token_ASC
+  token_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type AuthPayloadPreviousValues {
+  token: String!
+}
+
+type AuthPayloadSubscriptionPayload {
+  mutation: MutationType!
+  node: AuthPayload
+  updatedFields: [String!]
+  previousValues: AuthPayloadPreviousValues
+}
+
+input AuthPayloadSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AuthPayloadSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AuthPayloadSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AuthPayloadSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AuthPayloadWhereInput
+}
+
+input AuthPayloadUpdateInput {
+  token: String
+  user: UserUpdateOneInput
+}
+
+input AuthPayloadWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AuthPayloadWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AuthPayloadWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AuthPayloadWhereInput!]
+  token: String
+
+  """All values that are not equal to given value."""
+  token_not: String
+
+  """All values that are contained in given list."""
+  token_in: [String!]
+
+  """All values that are not contained in given list."""
+  token_not_in: [String!]
+
+  """All values less than the given value."""
+  token_lt: String
+
+  """All values less than or equal the given value."""
+  token_lte: String
+
+  """All values greater than the given value."""
+  token_gt: String
+
+  """All values greater than or equal the given value."""
+  token_gte: String
+
+  """All values containing the given string."""
+  token_contains: String
+
+  """All values not containing the given string."""
+  token_not_contains: String
+
+  """All values starting with the given string."""
+  token_starts_with: String
+
+  """All values not starting with the given string."""
+  token_not_starts_with: String
+
+  """All values ending with the given string."""
+  token_ends_with: String
+
+  """All values not ending with the given string."""
+  token_not_ends_with: String
+  user: UserWhereInput
 }
 
 type BatchPayload {
@@ -574,6 +722,128 @@ input CarpoolWhereInput {
 
 input CarpoolWhereUniqueInput {
   id: ID
+}
+
+type ClNe {
+  no: Int!
+  user(where: UserWhereInput): User!
+}
+
+"""A connection to a list of items."""
+type ClNeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ClNeEdge]!
+  aggregate: AggregateClNe!
+}
+
+input ClNeCreateInput {
+  no: Int!
+  user: UserCreateOneInput!
+}
+
+"""An edge in a connection."""
+type ClNeEdge {
+  """The item at the end of the edge."""
+  node: ClNe!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ClNeOrderByInput {
+  no_ASC
+  no_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ClNePreviousValues {
+  no: Int!
+}
+
+type ClNeSubscriptionPayload {
+  mutation: MutationType!
+  node: ClNe
+  updatedFields: [String!]
+  previousValues: ClNePreviousValues
+}
+
+input ClNeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ClNeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ClNeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ClNeSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ClNeWhereInput
+}
+
+input ClNeUpdateInput {
+  no: Int
+  user: UserUpdateOneInput
+}
+
+input ClNeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ClNeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ClNeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ClNeWhereInput!]
+  no: Int
+
+  """All values that are not equal to given value."""
+  no_not: Int
+
+  """All values that are contained in given list."""
+  no_in: [Int!]
+
+  """All values that are not contained in given list."""
+  no_not_in: [Int!]
+
+  """All values less than the given value."""
+  no_lt: Int
+
+  """All values less than or equal the given value."""
+  no_lte: Int
+
+  """All values greater than the given value."""
+  no_gt: Int
+
+  """All values greater than or equal the given value."""
+  no_gte: Int
+  user: UserWhereInput
 }
 
 type Comment implements Node {
@@ -3151,62 +3421,68 @@ type Mutation {
   createLocation(data: LocationCreateInput!): Location!
   createCarpoolLocation(data: CarpoolLocationCreateInput!): CarpoolLocation!
   createCarpool(data: CarpoolCreateInput!): Carpool!
-  createUser(data: UserCreateInput!): User!
   createDiscussion(data: DiscussionCreateInput!): Discussion!
   createComment(data: CommentCreateInput!): Comment!
   createFund(data: FundCreateInput!): Fund!
   createFundRaisedItems(data: FundRaisedItemsCreateInput!): FundRaisedItems!
   createContributedItems(data: ContributedItemsCreateInput!): ContributedItems!
+  createAuthPayload(data: AuthPayloadCreateInput!): AuthPayload!
+  createClNe(data: ClNeCreateInput!): ClNe!
+  createUser(data: UserCreateInput!): User!
   updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
   updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
   updateCarpoolLocation(data: CarpoolLocationUpdateInput!, where: CarpoolLocationWhereUniqueInput!): CarpoolLocation
   updateCarpool(data: CarpoolUpdateInput!, where: CarpoolWhereUniqueInput!): Carpool
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateDiscussion(data: DiscussionUpdateInput!, where: DiscussionWhereUniqueInput!): Discussion
   updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
   updateFund(data: FundUpdateInput!, where: FundWhereUniqueInput!): Fund
   updateFundRaisedItems(data: FundRaisedItemsUpdateInput!, where: FundRaisedItemsWhereUniqueInput!): FundRaisedItems
   updateContributedItems(data: ContributedItemsUpdateInput!, where: ContributedItemsWhereUniqueInput!): ContributedItems
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteEvent(where: EventWhereUniqueInput!): Event
   deleteLocation(where: LocationWhereUniqueInput!): Location
   deleteCarpoolLocation(where: CarpoolLocationWhereUniqueInput!): CarpoolLocation
   deleteCarpool(where: CarpoolWhereUniqueInput!): Carpool
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteDiscussion(where: DiscussionWhereUniqueInput!): Discussion
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deleteFund(where: FundWhereUniqueInput!): Fund
   deleteFundRaisedItems(where: FundRaisedItemsWhereUniqueInput!): FundRaisedItems
   deleteContributedItems(where: ContributedItemsWhereUniqueInput!): ContributedItems
+  deleteUser(where: UserWhereUniqueInput!): User
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
   upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
   upsertCarpoolLocation(where: CarpoolLocationWhereUniqueInput!, create: CarpoolLocationCreateInput!, update: CarpoolLocationUpdateInput!): CarpoolLocation!
   upsertCarpool(where: CarpoolWhereUniqueInput!, create: CarpoolCreateInput!, update: CarpoolUpdateInput!): Carpool!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertDiscussion(where: DiscussionWhereUniqueInput!, create: DiscussionCreateInput!, update: DiscussionUpdateInput!): Discussion!
   upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   upsertFund(where: FundWhereUniqueInput!, create: FundCreateInput!, update: FundUpdateInput!): Fund!
   upsertFundRaisedItems(where: FundRaisedItemsWhereUniqueInput!, create: FundRaisedItemsCreateInput!, update: FundRaisedItemsUpdateInput!): FundRaisedItems!
   upsertContributedItems(where: ContributedItemsWhereUniqueInput!, create: ContributedItemsCreateInput!, update: ContributedItemsUpdateInput!): ContributedItems!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyEvents(data: EventUpdateInput!, where: EventWhereInput): BatchPayload!
   updateManyLocations(data: LocationUpdateInput!, where: LocationWhereInput): BatchPayload!
   updateManyCarpoolLocations(data: CarpoolLocationUpdateInput!, where: CarpoolLocationWhereInput): BatchPayload!
   updateManyCarpools(data: CarpoolUpdateInput!, where: CarpoolWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyDiscussions(data: DiscussionUpdateInput!, where: DiscussionWhereInput): BatchPayload!
   updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
   updateManyFunds(data: FundUpdateInput!, where: FundWhereInput): BatchPayload!
   updateManyFundRaisedItemses(data: FundRaisedItemsUpdateInput!, where: FundRaisedItemsWhereInput): BatchPayload!
   updateManyContributedItemses(data: ContributedItemsUpdateInput!, where: ContributedItemsWhereInput): BatchPayload!
+  updateManyAuthPayloads(data: AuthPayloadUpdateInput!, where: AuthPayloadWhereInput): BatchPayload!
+  updateManyClNes(data: ClNeUpdateInput!, where: ClNeWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyEvents(where: EventWhereInput): BatchPayload!
   deleteManyLocations(where: LocationWhereInput): BatchPayload!
   deleteManyCarpoolLocations(where: CarpoolLocationWhereInput): BatchPayload!
   deleteManyCarpools(where: CarpoolWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyDiscussions(where: DiscussionWhereInput): BatchPayload!
   deleteManyComments(where: CommentWhereInput): BatchPayload!
   deleteManyFunds(where: FundWhereInput): BatchPayload!
   deleteManyFundRaisedItemses(where: FundRaisedItemsWhereInput): BatchPayload!
   deleteManyContributedItemses(where: ContributedItemsWhereInput): BatchPayload!
+  deleteManyAuthPayloads(where: AuthPayloadWhereInput): BatchPayload!
+  deleteManyClNes(where: ClNeWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -3241,32 +3517,36 @@ type Query {
   locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   carpoolLocations(where: CarpoolLocationWhereInput, orderBy: CarpoolLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CarpoolLocation]!
   carpools(where: CarpoolWhereInput, orderBy: CarpoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Carpool]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   discussions(where: DiscussionWhereInput, orderBy: DiscussionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Discussion]!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   funds(where: FundWhereInput, orderBy: FundOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Fund]!
   fundRaisedItemses(where: FundRaisedItemsWhereInput, orderBy: FundRaisedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FundRaisedItems]!
   contributedItemses(where: ContributedItemsWhereInput, orderBy: ContributedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContributedItems]!
+  authPayloads(where: AuthPayloadWhereInput, orderBy: AuthPayloadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthPayload]!
+  clNes(where: ClNeWhereInput, orderBy: ClNeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ClNe]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   event(where: EventWhereUniqueInput!): Event
   location(where: LocationWhereUniqueInput!): Location
   carpoolLocation(where: CarpoolLocationWhereUniqueInput!): CarpoolLocation
   carpool(where: CarpoolWhereUniqueInput!): Carpool
-  user(where: UserWhereUniqueInput!): User
   discussion(where: DiscussionWhereUniqueInput!): Discussion
   comment(where: CommentWhereUniqueInput!): Comment
   fund(where: FundWhereUniqueInput!): Fund
   fundRaisedItems(where: FundRaisedItemsWhereUniqueInput!): FundRaisedItems
   contributedItems(where: ContributedItemsWhereUniqueInput!): ContributedItems
+  user(where: UserWhereUniqueInput!): User
   eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
   locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   carpoolLocationsConnection(where: CarpoolLocationWhereInput, orderBy: CarpoolLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CarpoolLocationConnection!
   carpoolsConnection(where: CarpoolWhereInput, orderBy: CarpoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CarpoolConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   discussionsConnection(where: DiscussionWhereInput, orderBy: DiscussionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DiscussionConnection!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   fundsConnection(where: FundWhereInput, orderBy: FundOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FundConnection!
   fundRaisedItemsesConnection(where: FundRaisedItemsWhereInput, orderBy: FundRaisedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FundRaisedItemsConnection!
   contributedItemsesConnection(where: ContributedItemsWhereInput, orderBy: ContributedItemsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContributedItemsConnection!
+  authPayloadsConnection(where: AuthPayloadWhereInput, orderBy: AuthPayloadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthPayloadConnection!
+  clNesConnection(where: ClNeWhereInput, orderBy: ClNeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClNeConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -3280,20 +3560,22 @@ type Subscription {
   location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   carpoolLocation(where: CarpoolLocationSubscriptionWhereInput): CarpoolLocationSubscriptionPayload
   carpool(where: CarpoolSubscriptionWhereInput): CarpoolSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   discussion(where: DiscussionSubscriptionWhereInput): DiscussionSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   fund(where: FundSubscriptionWhereInput): FundSubscriptionPayload
   fundRaisedItems(where: FundRaisedItemsSubscriptionWhereInput): FundRaisedItemsSubscriptionPayload
   contributedItems(where: ContributedItemsSubscriptionWhereInput): ContributedItemsSubscriptionPayload
+  authPayload(where: AuthPayloadSubscriptionWhereInput): AuthPayloadSubscriptionPayload
+  clNe(where: ClNeSubscriptionWhereInput): ClNeSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User implements Node {
   id: ID!
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
   discussionPosted(where: DiscussionWhereInput): Discussion
   hostEvent(where: EventWhereInput): Event
@@ -3316,8 +3598,8 @@ type UserConnection {
 input UserCreateInput {
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
   discussionPosted: DiscussionCreateOneWithoutPostedByInput
   hostEvent: EventCreateOneWithoutHostInput
@@ -3335,6 +3617,11 @@ input UserCreateManyWithoutFundContributedInput {
 input UserCreateManyWithoutMemberOfInput {
   create: [UserCreateWithoutMemberOfInput!]
   connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutCommentPostedInput {
@@ -3360,8 +3647,8 @@ input UserCreateOneWithoutItemContributedInput {
 input UserCreateWithoutCommentPostedInput {
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
   discussionPosted: DiscussionCreateOneWithoutPostedByInput
   hostEvent: EventCreateOneWithoutHostInput
@@ -3373,8 +3660,8 @@ input UserCreateWithoutCommentPostedInput {
 input UserCreateWithoutDiscussionPostedInput {
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
   hostEvent: EventCreateOneWithoutHostInput
   memberOf: EventCreateOneWithoutMembersInput
@@ -3386,8 +3673,8 @@ input UserCreateWithoutDiscussionPostedInput {
 input UserCreateWithoutFundContributedInput {
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
   discussionPosted: DiscussionCreateOneWithoutPostedByInput
   hostEvent: EventCreateOneWithoutHostInput
@@ -3399,8 +3686,8 @@ input UserCreateWithoutFundContributedInput {
 input UserCreateWithoutHostEventInput {
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
   discussionPosted: DiscussionCreateOneWithoutPostedByInput
   memberOf: EventCreateOneWithoutMembersInput
@@ -3412,8 +3699,8 @@ input UserCreateWithoutHostEventInput {
 input UserCreateWithoutItemContributedInput {
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
   discussionPosted: DiscussionCreateOneWithoutPostedByInput
   hostEvent: EventCreateOneWithoutHostInput
@@ -3425,8 +3712,8 @@ input UserCreateWithoutItemContributedInput {
 input UserCreateWithoutMemberOfInput {
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
   discussionPosted: DiscussionCreateOneWithoutPostedByInput
   hostEvent: EventCreateOneWithoutHostInput
@@ -3467,8 +3754,8 @@ type UserPreviousValues {
   id: ID!
   username: String!
   password: String!
-  realName: String!
-  phone: String!
+  realName: String
+  phone: String
   email: String!
 }
 
@@ -3511,6 +3798,20 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  username: String
+  password: String
+  realName: String
+  phone: String
+  email: String
+  discussionPosted: DiscussionUpdateOneWithoutPostedByInput
+  hostEvent: EventUpdateOneWithoutHostInput
+  memberOf: EventUpdateOneWithoutMembersInput
+  fundContributed: FundUpdateOneWithoutUserInput
+  itemContributed: ContributedItemsUpdateOneWithoutUserInput
+  commentPosted: CommentUpdateOneWithoutPostedByInput
+}
+
 input UserUpdateInput {
   username: String
   password: String
@@ -3541,6 +3842,14 @@ input UserUpdateManyWithoutMemberOfInput {
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutMemberOfInput!]
   upsert: [UserUpsertWithWhereUniqueWithoutMemberOfInput!]
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
 }
 
 input UserUpdateOneWithoutCommentPostedInput {
@@ -3661,6 +3970,11 @@ input UserUpdateWithWhereUniqueWithoutFundContributedInput {
 input UserUpdateWithWhereUniqueWithoutMemberOfInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutMemberOfDataInput!
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutCommentPostedInput {

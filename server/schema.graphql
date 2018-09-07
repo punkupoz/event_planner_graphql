@@ -8,17 +8,23 @@
 # import Fund from './generated/prisma.graphql'
 # import FundRaisedItems from './generated/prisma.graphql'
 # import ContributedItems from './generated/prisma.graphql'
+# import ClNe from './generated/prisma.graphql'
 
 type Query {
-	users: User
+	users: [User!]!
+	user(id: ID!): User
 }
 
 type Mutation {
 	createUser(
 		username: String!,
 		password: String!,
-		realName: String!,
-		phone: String!,
+		realName: String,
+		phone: String,
 		email: String!
 	): User!
+	createClNe(
+		no: Int!,
+		user: User!
+	): ClNe!
 }

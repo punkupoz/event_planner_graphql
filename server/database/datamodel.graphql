@@ -46,8 +46,8 @@ type User {
 	id: ID! @unique
 	username: String!
 	password: String!
-	realName: String!
-	phone: String!
+	realName: String
+	phone: String
 	email: String! @unique
 
 	discussionPosted: Discussion @relation(name: "UserDiscussionPosted")
@@ -107,4 +107,3 @@ type ContributedItems {
 	user: User! @relation(name: "MemberItemContribution")
 	event: Event! @relation(name: "EventContributedItems")
 }
-
